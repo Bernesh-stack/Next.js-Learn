@@ -1,6 +1,7 @@
 
 import Image from "next/image";
 import Ivaru from "./Components/Doop";
+import { revalidatePath } from "next/cache";
 
 export default function Home() {
   console.log("Hello world");
@@ -18,6 +19,17 @@ export default function Home() {
   // }
 
 
+
+
+
+export async function addPost(formData: FormData) {
+  const title = formData.get('title');
+
+  // ✅ Save to DB or mutate something here
+  await savePostToDatabase(title);
+
+  // ✅ Revalidate the page that shows the list of posts
+  revalidatePath('/posts');
 
 
   return (
